@@ -3,21 +3,18 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { DEFAULT_AUTH_CALLBACK, SIGN_IN_PATH, getSafeCallbackPath } from "../utils";
 
-export type AuthState = {
-  error?: string;
-} | null;
-
-export async function signInWithGithub(
-  prevState: AuthState,
-  formData: FormData
-): Promise<AuthState> {
+export async function signInWithGithub(formData: FormData) {
   const callback = formData.get("callbackUrl");
 
+  const redirectTo = getSafeCallbackPath(
+    typeof callback === "string" ? callback : null
+  );
   const result = await auth.api.signInSocial({
     body: {
       provider: "github",
-      callbackURL: typeof callback === "string" && callback.startsWith("/") ? callback : "/dashboard",
+      callbackURL: redirectTo,
     },
     headers: await headers(),
   });
@@ -25,7 +22,28 @@ export async function signInWithGithub(
   if (result.url) {
     redirect(result.url);
   }
-
-  return { error: "Failed to redirect to GitHub sign-in." };
 }
 
+export async function getServerSession() {
+  return auth.api.getSession({
+    headers: await headers(),
+  });
+}
+
+export async function requiredAuth(redirectTo = SIGN_IN_PATH) {
+  const session = await getServerSession();
+
+  if(!session) {
+    redirect(redirectTo);
+  }
+
+  return session;
+}
+
+export async function requiredUnauth(redirectTo = DEFAULT_AUTH_CALLBACK) {
+  const session = await getServerSession();
+
+  if (session) {
+    redirect(redirectTo);
+  }
+}

@@ -1,11 +1,8 @@
 "use client";
-
-import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useFormStatus } from "react-dom";
-import { signInWithGithub, type AuthState } from "../actions";
+import { signInWithGithub } from "../actions";
 
 function GitHubIcon() {
   return (
@@ -39,23 +36,17 @@ function SubmitButton() {
   )
 }
 
+
 type GithubSignInFormProps = {
   /** Optional post-login redirect path (e.g. GitHub install callback). */
   callbackUrl?: string;
 };
 
 export function GithubSignInForm({ callbackUrl }: GithubSignInFormProps) {
-  const [state, formAction] = useActionState(signInWithGithub, null as AuthState);
-
   return (
-    <form action={formAction} className="w-full space-y-4">
+    <form action={signInWithGithub} className="w-full">
       {callbackUrl ? (
         <input type="hidden" name="callbackUrl" value={callbackUrl} />
-      ) : null}
-      {state?.error ? (
-        <Alert variant="destructive">
-          <AlertDescription>{state.error}</AlertDescription>
-        </Alert>
       ) : null}
       <SubmitButton />
     </form>
