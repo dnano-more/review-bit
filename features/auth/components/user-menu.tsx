@@ -103,18 +103,18 @@ export function UserMenu({
         ) : (
           <Button
             variant="ghost"
-            className="h-9 gap-2 px-2"
+            className="h-10 w-full justify-start gap-2 px-2 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-0! group-data-[collapsible=icon]:justify-center"
             aria-label="Open account menu"
           >
             <UserAvatar user={user} size="sm" />
-            <span className="max-w-32 truncate text-left text-xs font-medium">
+            <span className="max-w-32 truncate text-left text-xs font-medium group-data-[collapsible=icon]:hidden">
               {displayName}
             </span>
-            <CircleChevronUpIcon className="size-4 text-muted-foreground" />
+            <CircleChevronUpIcon className="ml-auto size-4 text-muted-foreground group-data-[collapsible=icon]:hidden" />
           </Button>
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent side="top" align="start" sideOffset={8} className="w-56">
         <DropdownMenuGroup>
           <DropdownMenuLabel className="p-0 font-normal">
             <div className="flex items-start gap-2 px-2 py-2">
@@ -136,7 +136,7 @@ export function UserMenu({
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
-            <LogOutIcon  />
+            <LogOutIcon />
             Log out
           </DropdownMenuItem>
         </DropdownMenuGroup>
