@@ -21,7 +21,7 @@ export function DashboardShell({
     <TooltipProvider>
       <SidebarProvider>
         <DashboardSidebar user={user} plan={plan} />
-        <SidebarInset className="min-h-svh p-6 bg-background">
+        <SidebarInset className="min-h-svh bg-background flex flex-1 flex-col">
           {children}
         </SidebarInset>
       </SidebarProvider>
