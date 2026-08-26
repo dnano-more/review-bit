@@ -17,7 +17,7 @@ export function getGithubApp() {
 }
 
 export function getGithubInstallUrl(userId: string) {
-  const url = new URL(`https://github.com/settings/apps/review-bit/installations/new`);
+  const url = new URL(`https://github.com/apps/reviewbit-app/installations/new`);
   // `state` round-trips through GitHub so we can link the installation to this user.
   url.searchParams.set("state", userId);
   return url.toString();
