@@ -75,7 +75,30 @@ export async function saveInstallation(userId: string, installationId: number) {
 
 
 export async function deleteInstallation(userId: string) {
-  await prisma.githubInstallation.delete({ where: { userId } });
+  const installation = await prisma.githubInstallation.findUnique({
+    where: { userId },
+    select: { installationId: true },
+  });
+
+  if (!installation) {
+    return;
+  }
+
+  // 1. Uninstall the app from GitHub via Octokit REST API
+  try {
+    const app = getGithubApp();
+    await app.octokit.request("DELETE /app/installations/{installation_id}", {
+      installation_id: installation.installationId,
+    });
+  } catch (error) {
+    // If the app was already uninstalled directly on GitHub (404), log and proceed to clean up DB
+    console.error("Failed to delete installation on GitHub:", error);
+  }
+
+  // 2. Remove record from database
+  await prisma.githubInstallation.deleteMany({
+    where: { userId },
+  });
 }
 
 export async function getUserIdByInstallationId(installationId: number) {
