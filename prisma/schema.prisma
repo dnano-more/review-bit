@@ -17,6 +17,10 @@ model User {
   name          String
   email         String
   emailVerified Boolean   @default(false)
+  plan          String    @default("free") // free | pro
+  razorpaySubscriptionId String?
+  subscriptionStatus String? // active | canceled | trial
+  subscriptionRenewsAt DateTime?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
