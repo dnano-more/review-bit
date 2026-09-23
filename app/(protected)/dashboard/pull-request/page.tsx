@@ -32,7 +32,7 @@ export default async function DashboardPullRequestsPage() {
         {header}
         <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
           <div className="flex size-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
-            <GithubIcon className="size-7" />
+            <GitHubIcon className="size-7" />
           </div>
           <div className="space-y-1">
             <h3 className="text-base font-semibold text-foreground">

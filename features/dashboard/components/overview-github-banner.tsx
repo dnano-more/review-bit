@@ -21,7 +21,7 @@ export function OverviewGithubBanner({
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400">
-              <GithubIcon className="size-6" />
+              <GitHubIcon className="size-6" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ export function OverviewGithubBanner({
           <div className="shrink-0">
             <Button asChild className="w-full sm:w-auto shadow-sm">
               <Link href={DASHBOARD_ROUTES.github} className="gap-2">
-                <GithubIcon className="size-4" />
+                <GitHubIcon className="size-4" />
                 Install GitHub App
               </Link>
             </Button>

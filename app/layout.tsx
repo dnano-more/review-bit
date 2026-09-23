@@ -24,6 +24,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Review Bit",
   description: "AI Code Review Tool",
+  icons: {
+    icon: "/review-bit-eye-logo.svg",
+  },
 };
 
 export default function RootLayout({
